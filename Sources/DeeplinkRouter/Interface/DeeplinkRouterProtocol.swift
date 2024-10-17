@@ -10,7 +10,7 @@ import Foundation
 public protocol DeeplinkRouterProtocol {
     var isActive: Bool { get set }
     var navigator: NavigatorProtocol { get set }
-    func handle(deeplink: URL)
-    func handleLastDeeplink()
+    func handle(deeplink: URL) async
+    func handleLastDeeplink() async
     func register(deeplinks: [AnyDeeplink.Type])
 }

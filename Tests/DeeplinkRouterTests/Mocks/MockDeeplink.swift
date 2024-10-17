@@ -23,3 +23,8 @@ struct MockDeeplink: AnyDeeplink {
         await navigator.setLoading(false)
     }
 }
+
+final class AnotherMockDeeplink: AnyDeeplink {
+    static func canHandle(deeplink: URL) -> AnotherMockDeeplink? { return nil }
+    func handle(deeplink: URL, navigator: NavigatorProtocol) {}
+}

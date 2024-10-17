@@ -12,5 +12,5 @@ public protocol URLDecoderProtocol {
         type: T.Type,
         from url: URL,
         decoder: JSONDecoder
-    ) async throws -> T
+    ) throws -> T
 }

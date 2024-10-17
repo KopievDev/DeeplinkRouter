@@ -6,13 +6,11 @@
 //
 
 import UIKit
+import SafariServices
 
 public final class BaseNavigator: NavigatorProtocol {
 
-    public var window: UIWindow? {
-        // Возвращает главное окно приложения, которое можно получить через делегат приложения
-        UIApplication.shared.windows.first { $0.isKeyWindow }
-    }
+    public var window: UIWindow?
 
     public var topVc: UIViewController? {
         // Возвращает верхний контроллер в стеке навигации
@@ -38,7 +36,13 @@ public final class BaseNavigator: NavigatorProtocol {
         isLoading ? showLoader() : hideLoader()
     }
 
-    public init() {}
+    public init(window: UIWindow? = nil) {
+        if let window = window {
+            self.window = window
+        } else {
+            self.window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        }
+    }
 }
 
 // MARK: - Вспомогательные методы
@@ -74,29 +78,35 @@ private extension BaseNavigator {
         loader.removeFromSuperview()
     }
 
-    // Рекурсивный поиск верхнего контроллера
+    // Поиск верхнего контроллера
     func topViewController(rootViewController: UIViewController?) -> UIViewController? {
-        guard let rootViewController = rootViewController else {
-            return nil
+        guard var vc = rootViewController else { return nil }
+
+        // Если это UITabBarController, используем выбранный контроллер
+        if let tabBarController = vc as? UITabBarController, let selectedVC = tabBarController.selectedViewController {
+            vc = selectedVC
         }
 
-        if let presented = rootViewController.presentedViewController {
-            return topViewController(rootViewController: presented)
+        // Если это UINavigationController, используем верхний контроллер
+        if let navController = vc as? UINavigationController, let topVC = navController.topViewController {
+            vc = topVC
         }
 
-        if let nav = rootViewController as? UINavigationController {
-            return topViewController(rootViewController: nav.visibleViewController)
+        // Рекурсивно ищем presentedViewController
+        while let presentedVC = vc.presentedViewController {
+            if !(presentedVC is SFSafariViewController) && !(presentedVC is UIAlertController) {
+                vc = presentedVC
+            } else {
+                break
+            }
+
+            // Если это UINavigationController внутри presentedViewController, проверяем его верхний контроллер
+            if let navController = vc as? UINavigationController, let topVC = navController.topViewController {
+                vc = topVC
+            }
         }
 
-        if let tab = rootViewController as? UITabBarController {
-            return topViewController(rootViewController: tab.selectedViewController)
-        }
-
-        if let split = rootViewController as? UISplitViewController {
-            return topViewController(rootViewController: split.viewControllers.last)
-        }
-
-        return rootViewController
+        return vc
     }
 
     // Поиск контроллера по типу в иерархии
