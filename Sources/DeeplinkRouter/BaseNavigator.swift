@@ -7,6 +7,7 @@
 
 #if os(iOS)
 import UIKit
+import Combine
 import SafariServices
 
 public final class BaseNavigator: NavigatorProtocol {
@@ -37,17 +38,30 @@ public final class BaseNavigator: NavigatorProtocol {
         isLoading ? showLoader() : hideLoader()
     }
 
+    private var subscriptions: Set<AnyCancellable> = []
+
     public init(window: UIWindow? = nil) {
         if let window = window {
             self.window = window
         } else {
             self.window = UIApplication.shared.windows.first { $0.isKeyWindow }
+            bindUIWindow()
         }
     }
 }
 
 // MARK: - Вспомогательные методы
 private extension BaseNavigator {
+
+    func bindUIWindow() {
+        NotificationCenter.default
+            .publisher(for: UIWindow.didBecomeKeyNotification)
+            .compactMap { $0.object as? UIWindow }
+            .sink { [weak self] window in
+                print("Window became key: \(window)")
+                self?.window = window
+            }.store(in: &subscriptions)
+    }
 
     func showLoader() {
         guard let window = window else { return }
