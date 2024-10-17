@@ -10,6 +10,8 @@ import Foundation
 // Класс для универсального парсинга URL в Codable объект
 final class URLDecoder: URLDecoderProtocol {
 
+    public init() {}
+
     // Универсальный метод для парсинга объекта Codable из URL query-параметров
     func decode<T: URLCodable>(type: T.Type, from url: URL, decoder: JSONDecoder) throws -> T {
         guard let queryParams = url.queryParameters else {

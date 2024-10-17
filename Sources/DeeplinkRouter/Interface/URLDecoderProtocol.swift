@@ -14,3 +14,13 @@ public protocol URLDecoderProtocol {
         decoder: JSONDecoder
     ) throws -> T
 }
+
+public extension URLDecoderProtocol {
+    func decode<T: URLCodable>(
+        type: T.Type,
+        from url: URL,
+        decoder: JSONDecoder = JSONDecoder()
+    ) throws -> T {
+      try self.decode(type: type, from: url, decoder: decoder)
+    }
+}
