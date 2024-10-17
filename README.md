@@ -1,5 +1,6 @@
 # DeeplinkRouter 
 [![Swift](https://github.com/KopievDev/DeeplinkRouter/actions/workflows/swift.yml/badge.svg)](https://github.com/KopievDev/DeeplinkRouter/actions/workflows/swift.yml)
+[![Build and Publish Jazzy Documentation](https://github.com/KopievDev/DeeplinkRouter/actions/workflows/jazzy.yml/badge.svg)](https://github.com/KopievDev/DeeplinkRouter/actions/workflows/jazzy.yml)
 
 **DeeplinkRouter** is a lightweight, flexible, and easy-to-use framework for managing deep links and navigation within iOS applications. It allows you to register and handle different types of deep links, providing a clear way to navigate to specific parts of your app.
 
@@ -8,6 +9,11 @@
 - Works seamlessly with `UINavigationController`, `UITabBarController`, and other standard view controllers.
 - Asynchronous handling of deep links.
 - Customizable and extendable for any app architecture.
+
+## Documentation
+
+You can view the full API documentation [here](https://kopievdev.github.io/DeeplinkRouter/).
+
 
 ## Installation
 
