@@ -1,3 +1,4 @@
+#if os(iOS)
 import XCTest
 @testable import DeeplinkRouter
 
@@ -105,3 +106,4 @@ class DeeplinkRouterTests: XCTestCase {
         XCTAssertTrue(router.deeplinkTypes.contains { $0 == AnotherMockDeeplink.self })
     }
 }
+#endif

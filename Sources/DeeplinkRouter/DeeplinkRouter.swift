@@ -1,6 +1,7 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
+#if os(iOS)
 import UIKit
 
 public final class DeeplinkRouter {
@@ -48,3 +49,4 @@ extension DeeplinkRouter: DeeplinkRouterProtocol {
         deeplinkTypes.append(contentsOf: deeplinks)
     }
 }
+#endif

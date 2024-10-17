@@ -5,6 +5,7 @@
 //  Created by Иван Копиев on 17.10.2024.
 //
 
+#if os(iOS)
 import UIKit
 import SafariServices
 
@@ -165,3 +166,4 @@ private extension BaseNavigator {
         return nil
     }
 }
+#endif

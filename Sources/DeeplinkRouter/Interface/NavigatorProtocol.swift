@@ -5,6 +5,7 @@
 //  Created by Иван Копиев on 17.10.2024.
 //
 
+#if os(iOS)
 import UIKit
 
 public protocol NavigatorProtocol {
@@ -17,3 +18,4 @@ public protocol NavigatorProtocol {
     @MainActor
     func setLoading(_ isLoading: Bool)
 }
+#endif

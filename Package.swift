@@ -1,10 +1,10 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 5.5
 import PackageDescription
 
 let package = Package(
     name: "DeeplinkRouter",
     platforms: [
-        .iOS(.v13) // Зависимость от iOS
+        .iOS(.v13)
     ],
     products: [
         .library(

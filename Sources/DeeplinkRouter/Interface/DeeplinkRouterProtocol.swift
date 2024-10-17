@@ -5,6 +5,7 @@
 //  Created by Иван Копиев on 17.10.2024.
 //
 
+#if os(iOS)
 import Foundation
 
 public protocol DeeplinkRouterProtocol {
@@ -14,3 +15,4 @@ public protocol DeeplinkRouterProtocol {
     func handleLastDeeplink() async
     func register(deeplinks: [AnyDeeplink.Type])
 }
+#endif
