@@ -1,9 +1,11 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 5.5
 import PackageDescription
 
 let package = Package(
     name: "DeeplinkRouter",
-    platforms: [.iOS(.v13)],
+    platforms: [
+        .iOS(.v13) // Зависимость от iOS
+    ],
     products: [
         .library(
             name: "DeeplinkRouter",
@@ -12,19 +14,9 @@ let package = Package(
     targets: [
         .target(
             name: "DeeplinkRouter",
-            dependencies: [],
-            path: "Sources",
-            exclude: [],
-            resources: [],
-            swiftSettings: [],
-            linkerSettings: [
-                .linkedFramework("UIKit")
-            ]
-        ),
+            dependencies: []),
         .testTarget(
             name: "DeeplinkRouterTests",
-            dependencies: ["DeeplinkRouter"],
-            path: "Tests"
-        ),
+            dependencies: ["DeeplinkRouter"]),
     ]
 )
