@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     steps:
@@ -17,9 +16,9 @@ jobs:
     - name: Set up Xcode
       run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
     - name: Build project
-      run: swift build -v
-    - name: Run tests
-      run: swift test --enable-code-coverage
+      run: xcodebuild build -scheme DeeplinkRouter -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.5'
+    - name: Run tests with coverage
+      run: xcodebuild test -scheme DeeplinkRouter -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.5' -enableCodeCoverage YES
     - name: Upload coverage data
       uses: actions/upload-artifact@v3
       with:
