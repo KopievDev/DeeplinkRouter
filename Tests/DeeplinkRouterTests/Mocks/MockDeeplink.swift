@@ -4,7 +4,7 @@
 //
 //  Created by Иван Копиев on 17.10.2024.
 //
-
+#if os(iOS)
 import Foundation
 @testable import DeeplinkRouter
 
@@ -28,3 +28,4 @@ final class AnotherMockDeeplink: AnyDeeplink {
     static func canHandle(deeplink: URL) -> AnotherMockDeeplink? { return nil }
     func handle(deeplink: URL, navigator: NavigatorProtocol) {}
 }
+#endif

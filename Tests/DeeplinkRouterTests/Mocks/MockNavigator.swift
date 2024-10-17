@@ -4,7 +4,7 @@
 //
 //  Created by Иван Копиев on 17.10.2024.
 //
-
+#if os(iOS)
 import XCTest
 @testable import DeeplinkRouter
 
@@ -24,3 +24,4 @@ class MockNavigator: NavigatorProtocol {
         loadingCalls.append(isLoading)
     }
 }
+#endif
