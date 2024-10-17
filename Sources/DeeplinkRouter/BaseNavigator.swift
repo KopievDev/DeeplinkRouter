@@ -150,6 +150,13 @@ private extension BaseNavigator {
             }
         }
 
+        // Проверяем дочерние контроллеры
+        for child in rootViewController.children {
+            if let found = findController(in: child, ofType: type) {
+                return found
+            }
+        }
+
         // Проверяем представленный контроллер
         if let presented = rootViewController.presentedViewController {
             return findController(in: presented, ofType: type)

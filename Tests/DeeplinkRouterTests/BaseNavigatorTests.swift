@@ -10,6 +10,8 @@ import XCTest
 
 final class BaseNavigatorTests: XCTestCase {
 
+    class TargetViewController: UIViewController {}
+
     var navigator: BaseNavigator!
     var window: UIWindow!
 
@@ -28,6 +30,23 @@ final class BaseNavigatorTests: XCTestCase {
 
         // Then
         XCTAssertEqual(returnedWindow, window)
+    }
+
+    func testFindControllerReturnsCorrectController() {
+        // Given
+        let rootVC = UIViewController()
+        let targetVC = TargetViewController()
+        let navController = UINavigationController(rootViewController: targetVC)
+        rootVC.addChild(navController)
+
+        window.rootViewController = rootVC
+        window.makeKeyAndVisible()
+
+        // When
+        let foundVC = navigator.findController(type: TargetViewController.self)
+
+        // Then
+        XCTAssertEqual(foundVC, targetVC)
     }
 
     func testTopVcReturnsCorrectViewController() {
@@ -71,7 +90,7 @@ final class BaseNavigatorTests: XCTestCase {
         XCTAssertEqual(tabbar, tabBarController)
     }
 
-    @MainActor 
+    @MainActor
     func testSetLoadingShowsAndHidesLoader() {
         // Given
         window.makeKeyAndVisible()
