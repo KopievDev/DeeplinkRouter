@@ -4,12 +4,26 @@
 #if os(iOS)
 import UIKit
 
+/// A class that manages and routes deep links within the application.
 public final class DeeplinkRouter {
+
+    /// Indicates whether the router is currently active and capable of handling deep links.
     public var isActive: Bool = false
+
+    /// The navigator responsible for handling view controller transitions.
     public var navigator: NavigatorProtocol
+
+    /// The last unhandled deep link URL, if available.
     public var lastDeeplink: URL?
+
+    /// A list of types conforming to `AnyDeeplink` that the router can handle.
     public var deeplinkTypes: [AnyDeeplink.Type] = []
 
+    /// Initializes a new `DeeplinkRouter` instance.
+    /// - Parameters:
+    ///   - isActive: A flag indicating if the router is active (defaults to `false`).
+    ///   - navigator: The navigator responsible for navigation (defaults to `BaseNavigator`).
+    ///   - deeplinkTypes: An array of deeplink types the router can handle (optional).
     public init(
         isActive: Bool = false,
         navigator: NavigatorProtocol = BaseNavigator(),

@@ -10,36 +10,42 @@ import UIKit
 import Combine
 import SafariServices
 
+/// A class that implements `NavigatorProtocol` to manage navigation and loading states within the app.
 public final class BaseNavigator: NavigatorProtocol {
 
+    /// The main application window.
     public var window: UIWindow?
 
+    /// Returns the top-most view controller in the navigation stack.
     public var topVc: UIViewController? {
-        // Возвращает верхний контроллер в стеке навигации
         topViewController(rootViewController: window?.rootViewController)
     }
 
+    /// Returns the top-most `UINavigationController` in the navigation stack, if available.
     public var topNavController: UINavigationController? {
-        // Возвращает верхний UINavigationController, если он существует
         topVc as? UINavigationController ?? topVc?.navigationController
     }
 
+    /// Returns the `UITabBarController` if it is the root or top-most controller.
     public var tabbar: UITabBarController? {
-        // Возвращает UITabBarController, если он является корневым контроллером или верхним контроллером
         window?.rootViewController as? UITabBarController ?? topVc as? UITabBarController
     }
 
+    /// Finds a specific view controller type in the view controller hierarchy.
+    /// - Parameter type: The type of the view controller to find.
+    /// - Returns: The found view controller of the specified type, or `nil` if not found.
     public func findController<T: UIViewController>(type: T.Type) -> T? {
-        // Поиск контроллера определённого типа в иерархии
         findController(in: window?.rootViewController, ofType: type)
     }
 
+    /// Displays or hides a loading indicator.
+    /// - Parameter isLoading: A flag indicating whether to show or hide the loading indicator.
     public func setLoading(_ isLoading: Bool) {
         isLoading ? showLoader() : hideLoader()
     }
 
-    private var subscriptions: Set<AnyCancellable> = []
-
+    /// Initializes the navigator, optionally with a specific `UIWindow`.
+    /// - Parameter window: The window to associate with the navigator. If not provided, it attempts to use the key window.
     public init(window: UIWindow? = nil) {
         if let window = window {
             self.window = window
@@ -48,9 +54,11 @@ public final class BaseNavigator: NavigatorProtocol {
             bindUIWindow()
         }
     }
+
+    private var subscriptions: Set<AnyCancellable> = []
 }
 
-// MARK: - Вспомогательные методы
+// MARK: - Helpers
 private extension BaseNavigator {
 
     func bindUIWindow() {
