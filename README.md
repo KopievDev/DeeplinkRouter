@@ -1,4 +1,5 @@
-# DeeplinkRouter
+# DeeplinkRouter 
+[![Swift](https://github.com/KopievDev/DeeplinkRouter/actions/workflows/swift.yml/badge.svg)](https://github.com/KopievDev/DeeplinkRouter/actions/workflows/swift.yml)
 
 **DeeplinkRouter** is a lightweight, flexible, and easy-to-use framework for managing deep links and navigation within iOS applications. It allows you to register and handle different types of deep links, providing a clear way to navigate to specific parts of your app.
 
@@ -53,7 +54,11 @@ To set up the router, you need to register your deeplink types and activate the 
 
 ```swift
 let navigator = BaseNavigator()
-let router = DeeplinkRouter(isActive: true, navigator: navigator, deeplinkTypes: [ProfileDeeplink.self])
+let router = DeeplinkRouter(
+    isActive: true,
+    navigator: navigator,
+    deeplinkTypes: [ProfileDeeplink.self]
+)
 ```
 
 ### 3. Handling Deeplinks
