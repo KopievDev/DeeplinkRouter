@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Index  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a title="Index  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html"> Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">Index</a>
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/BaseNavigator.html">BaseNavigator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/DeeplinkRouter.html">DeeplinkRouter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/URLDecoder.html">URLDecoder</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/AnyDeeplink.html">AnyDeeplink</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/DeeplinkRouterProtocol.html">DeeplinkRouterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/NavigatorProtocol.html">NavigatorProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/URLCodable.html">URLCodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/URLDecoderProtocol.html">URLDecoderProtocol</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='deeplinkrouter' class='heading'>DeeplinkRouter</h1>
+
+<p><a href="https://github.com/KopievDev/DeeplinkRouter/actions/workflows/swift.yml"><img src="https://github.com/KopievDev/DeeplinkRouter/actions/workflows/swift.yml/badge.svg" alt="Swift"></a></p>
+
+<p><strong>DeeplinkRouter</strong> is a lightweight, flexible, and easy-to-use framework for managing deep links and navigation within iOS applications. It allows you to register and handle different types of deep links, providing a clear way to navigate to specific parts of your app.</p>
+<h2 id='features' class='heading'>Features</h2>
+
+<ul>
+<li>Simple deep link registration and routing.</li>
+<li>Works seamlessly with <code>UINavigationController</code>, <code>UITabBarController</code>, and other standard view controllers.</li>
+<li>Asynchronous handling of deep links.</li>
+<li>Customizable and extendable for any app architecture.</li>
+</ul>
+<h2 id='installation' class='heading'>Installation</h2>
+<h3 id='swift-package-manager' class='heading'>Swift Package Manager</h3>
+
+<p>Add the following to your <code>Package.swift</code>:</p>
+<pre class="highlight swift"><code><span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+    <span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/KopievDev/DeeplinkRouter"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"1.0.0"</span><span class="p">)</span>
+<span class="p">]</span>
+</code></pre>
+
+<p>Or use the Xcode integration to add <strong>DeeplinkRouter</strong> as a Swift Package Dependency.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<h3 id='1-registering-deeplinks' class='heading'>1. Registering Deeplinks</h3>
+
+<p>Start by defining your deeplink types. Each deeplink must conform to the <code><a href="Protocols/AnyDeeplink.html">AnyDeeplink</a></code> protocol.</p>
+<pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">ProfileDeeplink</span><span class="p">:</span> <span class="kt">AnyDeeplink</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">userId</span><span class="p">:</span> <span class="kt">String</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">canHandle</span><span class="p">(</span><span class="nv">deeplink</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ProfileDeeplink</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">userId</span> <span class="o">=</span> <span class="kt">URLComponents</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="n">deeplink</span><span class="p">,</span> <span class="nv">resolvingAgainstBaseURL</span><span class="p">:</span> <span class="kc">false</span><span class="p">)?</span>
+            <span class="o">.</span><span class="n">queryItems</span><span class="p">?</span>
+            <span class="o">.</span><span class="nf">first</span><span class="p">(</span><span class="nv">where</span><span class="p">:</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">"userId"</span> <span class="p">})?</span><span class="o">.</span><span class="n">value</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kt">ProfileDeeplink</span><span class="p">(</span><span class="nv">userId</span><span class="p">:</span> <span class="n">userId</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">handle</span><span class="p">(</span><span class="nv">deeplink</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">navigator</span><span class="p">:</span> <span class="kt">NavigatorProtocol</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">profileVC</span> <span class="o">=</span> <span class="kt">ProfileViewController</span><span class="p">(</span><span class="nv">userId</span><span class="p">:</span> <span class="n">userId</span><span class="p">)</span>
+        <span class="n">navigator</span><span class="o">.</span><span class="n">topNavController</span><span class="p">?</span><span class="o">.</span><span class="nf">pushViewController</span><span class="p">(</span><span class="n">profileVC</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='2-initializing-code-deeplinkrouter-code' class='heading'>2. Initializing <code><a href="Classes/DeeplinkRouter.html">DeeplinkRouter</a></code></h3>
+
+<p>To set up the router, you need to register your deeplink types and activate the router:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">navigator</span> <span class="o">=</span> <span class="kt">BaseNavigator</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">router</span> <span class="o">=</span> <span class="kt">DeeplinkRouter</span><span class="p">(</span>
+    <span class="nv">isActive</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nv">navigator</span><span class="p">:</span> <span class="n">navigator</span><span class="p">,</span>
+    <span class="nv">deeplinkTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt">ProfileDeeplink</span><span class="o">.</span><span class="k">self</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre>
+<h3 id='3-handling-deeplinks' class='heading'>3. Handling Deeplinks</h3>
+
+<p>Once registered, handle incoming deeplinks by calling:</p>
+<pre class="highlight swift"><code><span class="k">if</span> <span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"myapp://profile?userId=123"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">Task</span> <span class="p">{</span>
+        <span class="n">await</span> <span class="n">router</span><span class="o">.</span><span class="nf">handle</span><span class="p">(</span><span class="nv">deeplink</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='4-handling-saved-deeplinks' class='heading'>4. Handling Saved Deeplinks</h3>
+
+<p>If a deep link comes when the app is inactive, you can handle it later:</p>
+<pre class="highlight swift"><code><span class="n">router</span><span class="o">.</span><span class="nf">handleLastDeeplink</span><span class="p">()</span>
+</code></pre>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-10-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>
